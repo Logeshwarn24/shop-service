@@ -61,15 +61,12 @@
                             <div class="dropdown-menu m-0">
                                 <a href="feature.html" class="dropdown-item">Features</a>
                                 <a href="pricing.html" class="dropdown-item">Pricing</a>
-                                <a href="blog.html" class="dropdown-item">Blog</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link active">Contact Us</a>
                     </div>
-                    <a href="#" class="btn btn-light border border-primary rounded-pill text-primary py-2 px-4 me-4">Log In</a>
-                    <a href="#" class="btn btn-primary rounded-pill text-white py-2 px-4">Sign Up</a>
+                    <a href="login.html" class="btn btn-light border border-primary rounded-pill text-primary py-2 px-4 me-4">Log In</a>
+                    <a href="signup.html" class="btn btn-primary rounded-pill text-white py-2 px-4">Sign Up</a>
                 </div>
             </nav>
         </div>
@@ -108,13 +105,13 @@
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
                     <h4 class="text-primary mb-4">Contact Us</h4>
                     <h1 class="display-5 mb-4">Get In Touch With Us</h1>
-                    <p class="mb-0">Dolor sit amet consectetur, adipisicing elit. Ipsam, beatae maxime. Vel animi eveniet doloremque reiciendis soluta iste provident non rerum illum perferendis earum est architecto dolores vitae quia vero quod incidunt culpa corporis, porro doloribus. Voluptates nemo doloremque cum.
+                    <p class="mb-0">Have any questions or inquiries? Reach out to us, and we’ll be happy to assist you. Our team is available to provide you with the best support and information.
                     </p>
                 </div>
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
                         <h2 class="display-5 mb-2">Our Contact Form</h2>
-                        <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a class="text-primary fw-bold" href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                        <p class="mb-4">We are here to answer any questions you may have. Fill out the form below, and we'll get back to you as soon as possible.</p>
                         <form id="contactForm">
                             <div class="row g-3">
                                 <div class="col-lg-12 col-xl-6">
@@ -129,6 +126,12 @@
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="phone" placeholder="Your Number">
+                                        <label for="Number">Your Number</label>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 160px"></textarea>
@@ -138,6 +141,7 @@
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" id="submit">Send Message</button>
                                 </div>
+                                <div id="responseMessage" class="text-center mt-3"></div>
                             </div>
                         </form>
                     </div>
@@ -186,7 +190,7 @@
                     <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="rounded h-100">
                             <iframe class="rounded w-100" 
-                            style="height: 500px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1694259649153!5m2!1sen!2sbd" 
+                            style="height: 500px;" src="https://www.google.com/maps/embed?pb=!1m17!1m8!1m3!1d5025.963194385718!2d79.66553102957464!3d12.21513551040145!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d12.21664243809914!2d79.66876681746!5e0!3m2!1sen!2sin!4v1740208387348!5m2!1sen!2sin"
                             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
@@ -203,43 +207,31 @@
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-dark mb-4">Company</h4>
-                            <a href=""> Why Muraliyar Service?</a>
-                            <a href=""> Our Features</a>
-                            <a href=""> Our Portfolio</a>
-                            <a href=""> About Us</a>
-                            <a href=""> Our Blog & News</a>
-                            <a href=""> Get In Touch</a>
+                            <a href="feature.html"> Our Features</a>
+                            <a href="about.html"> About Us</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-dark">Quick Links</h4>
-                            <a href=""> About Us</a>
-                            <a href=""> Contact Us</a>
-                            <a href=""> Privacy Policy</a>
-                            <a href=""> Terms & Conditions</a>
-                            <a href=""> Our Blog & News</a>
-                            <a href=""> Our Team</a>
+                            <a href="about.html"> About Us</a>
+                            <a href="contact.html"> Contact Us</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-dark">Services</h4>
-                            <a href=""> All Services</a>
-                            <a href=""> Promotional Emails</a>
-                            <a href=""> Product Updates</a>
-                            <a href=""> Email Marketing</a>
-                            <a href=""> Acquistion Emails</a>
-                            <a href=""> Retention Emails</a>
+                            <a href="service.html"> Services</a>
+                            <a href="pricing.html"> Offering Job Salary</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-dark">Contact Info</h4>
-                            <a href=""><i class="fa fa-map-marker-alt me-2"></i> 123 Street, New York, USA</a>
-                            <a href=""><i class="fas fa-envelope me-2"></i> info@example.com</a>
-                            <a href=""><i class="fas fa-phone me-2"></i> +012 345 67890</a>
-                            <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+                            <a href=""><i class="fa fa-map-marker-alt me-2"></i> TINDIVANAM, VILLUPURAM, TAMIL NADU, INDIA.</a>
+                            <a href=""><i class="fas fa-envelope me-2"></i> muraliyar150289@gmail.com</a>
+                            <a href=""><i class="fas fa-phone me-2"></i> +91 63854 34306</a>
+                            <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +91 63854 34326</a>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-share fa-2x text-secondary me-2"></i>
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -287,6 +279,7 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
+
     <!-- JavaScript to Handle Form Submission -->
 <script>
     document.getElementById("contactForm").addEventListener("submit", async function(e) {
@@ -294,18 +287,28 @@
     
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
         const message = document.getElementById("message").value;
+        const responseMessage = document.getElementById("responseMessage");
     
-        const response = await fetch("http://localhost:5000/api/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, message })
-        });
+        try {
+            const response = await fetch("http://localhost:5000/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, message })
+            });
     
-        const data = await response.json();
-        alert(data.message); // Show success/error message
+            const data = await response.json();
+            if (response.ok) {
+                responseMessage.innerHTML = '<p class="text-success">Message sent successfully!</p>';
+            } else {
+                responseMessage.innerHTML = '<p class="text-danger">Failed to send message. Please try again.</p>';
+            }
+        } catch (error) {
+            responseMessage.innerHTML = '<p class="text-danger">Error: Unable to send message.</p>';
+        }
     });
-    </script>
+</script>
     
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
