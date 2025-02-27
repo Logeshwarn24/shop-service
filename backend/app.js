@@ -4,7 +4,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const path = require('path')
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -34,6 +34,7 @@ const ContactSchema = new mongoose.Schema({
     name: String,
     email: String,
     message: String,
+    number: Number,
 });
 const Contact = mongoose.model("Contact", ContactSchema);
 
@@ -50,12 +51,14 @@ const authMiddleware = (req, res, next) => {
         res.status(400).json({ message: "Invalid Token" });
     }
 };
+
 // Serve Frontend (Build Version)
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
+
 // ✅ Signup Route
 app.post("/api/signup", async (req, res) => {
     const { name, email, password } = req.body;
@@ -110,10 +113,10 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/api/contact", async (req, res) => {
-    const { name, email, message } = req.body;
+    const { name, email, message, number } = req.body;
 
     try {
-        const newContact = new Contact({ name, email, message });
+        const newContact = new Contact({ name, email, message, number });
         await newContact.save();
 
         await transporter.sendMail({
