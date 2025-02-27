@@ -4,6 +4,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const path = require('path')
 require("dotenv").config();
 
 const app = express();
@@ -49,7 +50,12 @@ const authMiddleware = (req, res, next) => {
         res.status(400).json({ message: "Invalid Token" });
     }
 };
+// Serve Frontend (Build Version)
+app.use(express.static(path.join(__dirname, "../frontend")));
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 // ✅ Signup Route
 app.post("/api/signup", async (req, res) => {
     const { name, email, password } = req.body;
