@@ -1,13 +1,11 @@
 {
-  "name": "mern-app",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "MERN stack application with authentication and contact form",
+  "description": "A Node.js backend with HTML/CSS frontend",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "build": "cd frontend && npm install && npm run build",
-    "heroku-postbuild": "npm run build"
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.1",
@@ -23,8 +21,5 @@
   },
   "engines": {
     "node": ">=16"
-  },
-  "keywords": ["mern", "authentication", "express", "mongodb"],
-  "author": "Your Name",
-  "license": "MIT"
+  }
 }

@@ -15,26 +15,29 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error("MongoDB Connection Error:", err));
 
 // User Schema
-const UserSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, unique: true },
-    password: String,
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
 });
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", userSchema);
 
 // Contact Schema
-const ContactSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    message: String,
-    number: Number,
+const contactSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    message: { type: String, required: true },
+    number: { type: Number, required: true },
 });
-const Contact = mongoose.model("Contact", ContactSchema);
+const Contact = mongoose.model("Contact", contactSchema);
 
 // JWT Authentication Middleware
 const authMiddleware = (req, res, next) => {
@@ -50,17 +53,19 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-// Serve Frontend (Build Version)
-app.use(express.static(path.join(__dirname, "frontend", "build")));
+// Serve Frontend Files
+app.use(express.static(path.join(__dirname, "frontend")));
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 // Signup Route
 app.post("/api/signup", async (req, res) => {
-    const { name, email, password } = req.body;
     try {
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) return res.status(400).json({ message: "All fields are required" });
+
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "Email already exists" });
 
@@ -70,14 +75,16 @@ app.post("/api/signup", async (req, res) => {
 
         res.json({ message: "User registered successfully!" });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error", error });
     }
 });
 
 // Login Route
 app.post("/api/login", async (req, res) => {
-    const { email, password } = req.body;
     try {
+        const { email, password } = req.body;
+        if (!email || !password) return res.status(400).json({ message: "All fields are required" });
+
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "User not found" });
 
@@ -87,14 +94,18 @@ app.post("/api/login", async (req, res) => {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
         res.json({ token });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error", error });
     }
 });
 
-// Protected Route Example
+// Protected Route
 app.get("/api/user", authMiddleware, async (req, res) => {
-    const user = await User.findById(req.user.userId).select("-password");
-    res.json(user);
+    try {
+        const user = await User.findById(req.user.userId).select("-password");
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
 });
 
 // Contact Form Submission
@@ -107,8 +118,10 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/api/contact", async (req, res) => {
-    const { name, email, message, number } = req.body;
     try {
+        const { name, email, message, number } = req.body;
+        if (!name || !email || !message || !number) return res.status(400).json({ message: "All fields are required" });
+
         const newContact = new Contact({ name, email, message, number });
         await newContact.save();
 
@@ -121,7 +134,7 @@ app.post("/api/contact", async (req, res) => {
 
         res.json({ message: "Message sent successfully!" });
     } catch (error) {
-        res.status(500).json({ message: "Error sending message" });
+        res.status(500).json({ message: "Error sending message", error });
     }
 });
 
