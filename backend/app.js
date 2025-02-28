@@ -15,11 +15,9 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error(err));
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.error("MongoDB Connection Error:", err));
 
 // User Schema
 const UserSchema = new mongoose.Schema({
@@ -53,23 +51,20 @@ const authMiddleware = (req, res, next) => {
 };
 
 // Serve Frontend (Build Version)
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.use(express.static(path.join(__dirname, "frontend", "build")));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
 
-// ✅ Signup Route
+// Signup Route
 app.post("/api/signup", async (req, res) => {
     const { name, email, password } = req.body;
-
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "Email already exists" });
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
+        const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
@@ -79,10 +74,9 @@ app.post("/api/signup", async (req, res) => {
     }
 });
 
-// ✅ Login Route
+// Login Route
 app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "User not found" });
@@ -97,13 +91,13 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
-// ✅ Protected Route Example
+// Protected Route Example
 app.get("/api/user", authMiddleware, async (req, res) => {
     const user = await User.findById(req.user.userId).select("-password");
     res.json(user);
 });
 
-// ✅ Contact Form Submission
+// Contact Form Submission
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -114,7 +108,6 @@ const transporter = nodemailer.createTransport({
 
 app.post("/api/contact", async (req, res) => {
     const { name, email, message, number } = req.body;
-
     try {
         const newContact = new Contact({ name, email, message, number });
         await newContact.save();
@@ -123,7 +116,7 @@ app.post("/api/contact", async (req, res) => {
             from: process.env.EMAIL_USER,
             to: process.env.EMAIL_USER,
             subject: "New Contact Form Submission",
-            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}\nNumber: ${number}`,
         });
 
         res.json({ message: "Message sent successfully!" });
