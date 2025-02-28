@@ -1,4 +1,14 @@
 {
+  "name": "mern-app",
+  "version": "1.0.0",
+  "description": "MERN stack application with authentication and contact form",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build": "cd frontend && npm install && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.1",
     "cors": "^2.8.5",
@@ -6,7 +16,15 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
-    "nodemailer": "^6.10.0",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": ["mern", "authentication", "express", "mongodb"],
+  "author": "Your Name",
+  "license": "MIT"
 }
